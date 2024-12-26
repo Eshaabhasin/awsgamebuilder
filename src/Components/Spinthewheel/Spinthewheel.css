@@ -1,0 +1,98 @@
+.wheel-container {
+  display: flex;
+  
+}
+
+.wheel {
+  position: relative;
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+  border: 2px solid #333;
+  transition: transform 3s cubic-bezier(0.17, 0.67, 0.12, 0.99);
+  margin: 2rem 0;
+}
+.heading{
+    margin-bottom: 15vh;
+}
+.left{
+    display: flex;
+    justify-content: center;
+    width:50%;
+}
+.right{
+    display: flex;
+    width:50%;
+}
+.wheel-sector {
+  position: absolute;
+  width: 50%;
+  height: 50%;
+  transform-origin: 100% 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+}
+
+.topic-text {
+  transform: rotate(-60deg);
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+  margin-bottom: 40%;
+  max-width: 80px;
+}
+
+.spin-button {
+  padding: 1rem 2rem;
+  font-size: 1.2rem;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 2rem 0;
+  transition: background-color 0.3s;
+}
+
+.spin-button:hover:not(:disabled) {
+  background-color: #45a049;
+}
+
+.spin-button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.topic-info {
+  text-align: center;
+  margin-top: 7rem;
+  padding: 1rem;
+  height:170px;
+  background-color: rgb(225, 168, 168);
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.topic-info h2 {
+  color: #333;
+  margin-bottom: 1rem;
+  font-size: 30px;
+}
+
+.topic-info p {
+  color: #666;
+  font-size: 20px;
+}
+
+/* Add a pointer/arrow to indicate selected sector */
+.wheel-container::before {
+  content: "▼";
+  font-size: 2rem;
+  color: #333;
+  position: absolute;
+  top: 120px;
+  z-index: 1;
+}

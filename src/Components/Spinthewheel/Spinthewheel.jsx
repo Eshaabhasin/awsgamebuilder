@@ -1,28 +1,19 @@
 import React, { useState, useRef } from "react";
 import "./Spinthewheel.css";
+import wheelData from '../../data/wheeldata.json'
 
 const SpinningWheel = () => {
   const [rotation, setRotation] = useState(0);
   const [isSpinning, setIsSpinning] = useState(false);
-  const [selectedOption, setSelectedOption] = useState(null); // To store the selected option
+  const [selectedOption, setSelectedOption] = useState(null); 
   const wheelRef = useRef(null);
 
-  const segments = [
-    { title: "Fundamental Rights", color: "#FF69B4" },
-    { title: "Directive Principles", color: "#FF4500" },
-    { title: "Preamble", color: "#FFA500" },
-    { title: "Federal Structure", color: "#90EE90" },
-    { title: "Constitutional Bodies", color: "#FFFFFF" },
-    { title: "Amendment Process", color: "#32CD32" },
-    { title: "Citizenship", color: "#9370DB" },
-    { title: "Emergency Provisions", color: "#00BFFF" },
-  ];
+  const segments = wheelData.segments;
 
   const spinWheel = () => {
     if (!isSpinning) {
       setIsSpinning(true);
-      setSelectedOption(null); // Reset the selection before spinning
-
+      setSelectedOption(null); 
       const minSpins = 5;
       const extraSpins = Math.random() * 5;
       const totalSpins = minSpins + extraSpins;
@@ -30,19 +21,18 @@ const SpinningWheel = () => {
 
       const randomStop = Math.random() * 360;
       const finalRotation = degrees + randomStop;
-
       setRotation((prevRotation) => (prevRotation % 360) + finalRotation);
 
       setTimeout(() => {
         const normalizedRotation = (360 - (finalRotation % 360)) % 360;
         const segmentAngle = 360 / segments.length;
-        const selectedIndex = Math.floor(
-          (normalizedRotation + segmentAngle / 2) % 360 / segmentAngle
-        );
-
-        setSelectedOption(segments[selectedIndex]); // Set the selected option after the spin
+        const pointerOffset = segmentAngle / 2;
+        const adjustedRotation = (normalizedRotation + pointerOffset) % 360;
+        const selectedIndex = Math.floor(adjustedRotation / segmentAngle);
+        setSelectedOption(segments[selectedIndex]);
         setIsSpinning(false);
       }, 5000);
+      
     }
   };
 
@@ -52,22 +42,18 @@ const SpinningWheel = () => {
     const radius = 280;
     const startAngle = (index * 360) / total;
     const endAngle = ((index + 1) * 360) / total;
-
     const startRad = (startAngle - 90) * (Math.PI / 180);
     const endRad = (endAngle - 90) * (Math.PI / 180);
-
     const x1 = centerX + radius * Math.cos(startRad);
     const y1 = centerY + radius * Math.sin(startRad);
     const x2 = centerX + radius * Math.cos(endRad);
     const y2 = centerY + radius * Math.sin(endRad);
-
     return `M${centerX},${centerY} L${x1},${y1} A${radius},${radius} 0 0,1 ${x2},${y2}Z`;
   };
 
   return (
-  
     <div className="flex-center">
-<h1 className="heading">Spin the Wheel</h1>
+      <h1 className="heading">Spin the Wheel</h1>
       <div className="wheel-layout">
         <div className="wheel-container">
           <div className="outer-glow" />
@@ -88,7 +74,7 @@ const SpinningWheel = () => {
                   d={getSegmentPath(index, segments.length)}
                   fill={segment.color}
                   stroke="#FFD700"
-                  strokeWidth="2"
+                  strokeWidth="3"
                 />
                 <text
                   x="300"
@@ -119,8 +105,7 @@ const SpinningWheel = () => {
               fontSize="24"
               fontWeight="bold"
               style={{ pointerEvents: "none" }}
-            >
-             
+            >  
             </text>
           </svg>
           <div className="pointer">
@@ -134,22 +119,43 @@ const SpinningWheel = () => {
             {isSpinning ? "..." : "SPIN!"}
           </button>
         </div>
-
         {selectedOption && (
-          <div className="result-container">
-            <h2 className="result-title">Your Selection</h2>
-            <div className="selected-option">
-              <div
-                className="color-box"
-                style={{ backgroundColor: selectedOption.color }}
-              ></div>
-              <span className="selected-title">{selectedOption.title}</span>
+        <div className="result-container">
+          <div className="result">
+          <h2 className="result-title">Today's topic</h2>
+          <div className="selected-option">
+            <div
+              className="color-box"
+              style={{ backgroundColor: selectedOption.color }}
+            ></div>
+            <span className="selected-title">{selectedOption.title}</span>
+          </div>
+          </div>
+          
+          <div className="topic-information">
+            <div className="info-description">
+              <h3>Description</h3>
+              <p>{selectedOption.info.description}</p>
+            </div>
+            
+            <div className="info-key-points">
+              <h3>Key Points</h3>
+              <ul>
+                {selectedOption.info.keyPoints.map((point, index) => (
+                  <li key={index}>{point}</li>
+                ))}
+              </ul>
+            </div>
+            
+            <div className="info-importance">
+              <h3>Importance</h3>
+              <p>{selectedOption.info.importance}</p>
             </div>
           </div>
-        )}
+        </div>
+      )}
       </div>
     </div>
   );
 };
-
 export default SpinningWheel;

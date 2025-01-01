@@ -39,11 +39,6 @@
     pointer-events: none;
   }
 
-  :root {
-    --neon-text-color: #f8f8f8;
-    --neon-border-color: rgb(255, 255, 255);
-    color: white;
-  }
   
   .heading {
     margin-left: 6vw;
@@ -62,11 +57,11 @@
       text-shadow:
         -0.1rem -0.1rem 0.5rem #fff,
         0.1rem 0.1rem 0.5rem #fff,
-        0 0 1rem var(--neon-text-color),
-        0 0 2rem var(--neon-text-color),
-        0 0 3rem var(--neon-text-color),
-        0 0 4rem var(--neon-text-color),
-        0 0 5rem var(--neon-text-color);
+        0 0 1rem#ffffff,
+        0 0 2rem#ffffff,
+        0 0 3rem#ffffff,
+        0 0 4rem#ffffff,
+        0 0 5rem#ffffff;
     }
   
     20%, 24%, 55% {
@@ -167,6 +162,7 @@
     font-weight: 600;
     margin-left: 10vw;
     font-size: 17px;
+    color:white;
   }
 
   .info-description, .info-key-points, .info-importance {

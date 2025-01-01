@@ -5,6 +5,7 @@ import Spinthewheel from './Components/Spinthewheel/Spinthewheel'
 import Quiz from './Components/Quiz/Quiz'
 import Mario from './Components/Mario/Mario'
 
+
 function App() {
   return (
     <Router>
@@ -18,6 +19,7 @@ function App() {
           } />
           <Route path="/quiz" element={<Quiz />} />
           <Route path="/mario" element={<Mario />} />
+        
         </Routes>
       </div>
     </Router>
